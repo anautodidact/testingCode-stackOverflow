@@ -6,18 +6,18 @@ function sal_clock2 () {
 	this.initialized = false;
 	var aTimerObject = {timerStarted: false};
 	this.holdTimers = [];
-	var mythis = this; //this allows me to access this functions' variables from inside anonymous functions (where the this keyword is a different context)
+	var mythis = this;
 	this.checkIfNotInit = function(index) {
 		if (typeof this.holdTimers[index] === "undefined") { //if timer doesn't exist then create it.
 		this.holdTimers[index] = {timerStarted: false};
    		}
 	};
-	this.setTimeout = function(runFunction, millisecondsDelay) {
+	this.setTimeout = function(runFunction, millisecondsDelay) { //this works
 		console.log("Value of timerStarted: " + t.holdTimers[i].timerStarted);
 		var IDofTimer = setTimeout(function(){mythis.holdTimers[runFunction].timerStarted = true; console.log("Value of timerStarted: " + t.holdTimers[i].timerStarted);}, millisecondsDelay);
 		return IDofTimer;
 	};
-	this.setTimeoutTest = function(runFunction, millisecondsDelay) {
+	this.setTimeoutTest = function(runFunction, millisecondsDelay) { //this doesn't work
 		var IDofTimer = setTimeout(runFunction(), millisecondsDelay);
 		return IDofTimer;
 	}; //end this.setTimeOut
@@ -28,7 +28,7 @@ var i = 0;
 
 t.checkIfNotInit(i); //this assigns variable value so that I don't have to check for undefined
 t.setTimeout(i,3000); //this works
-t.setTimeoutTest(function(){console.log("Value of timerTwoStarted: " + t.holdTimers[i].timerStarted);}, 3000); //this doesn't work
+t.setTimeoutTest(function(){t.holdTimers[i].timerStarted = true; console.log("Value of timerTwoStarted: " + t.holdTimers[i].timerStarted);}, 3000); //this doesn't work although it is almost identical to working version
 
 
 </script>
