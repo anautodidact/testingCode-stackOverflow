@@ -1,7 +1,5 @@
 <html>
 <body>
-<p id="output">Output text here after custom object's setTimeOut has expired.</p>
-<p id="outputTwo">This is the output for the nonworking code.</p>
 </body>
 <script>
 function sal_clock2 () {
@@ -14,27 +12,24 @@ function sal_clock2 () {
 		this.holdTimers[index] = {timerStarted: false};
    		}
 	};
-	this.setTimeout = function(runFunction, millisecondsDelay) { //this works
-		var IDofTimer = setTimeout(function(){document.getElementById('output').innerHTML="Timer expired";}, millisecondsDelay);
-		return IDofTimer; //returning IDofTimer so that I can reference it later to stop timer if necessary.
+	this.setTimeout = function(runFunction, millisecondsDelay) {
+		console.log("Value of timerStarted: " + t.holdTimers[i].timerStarted);
+		var IDofTimer = setTimeout(function(){mythis.holdTimers[runFunction].timerStarted = true; console.log("Value of timerStarted: " + t.holdTimers[i].timerStarted);}, millisecondsDelay);
+		return IDofTimer;
 	};
-	this.setTimeoutTest = function(runFunction, millisecondsDelay) { //this doesn't work
-		var IDofTimer = setTimeout(runFunction(), millisecondsDelay); //function(){mythis.holdTimers[runFunction].timerStarted = false;}
+	this.setTimeoutTest = function(runFunction, millisecondsDelay) {
+		var IDofTimer = setTimeout(runFunction(), millisecondsDelay);
 		return IDofTimer;
 	}; //end this.setTimeOut
 }
 
-var t = new sal_clock2(); //creating a timer object
-var i = 0; 
+var t = new sal_clock2();
+var i = 0;
 
-t.checkIfNotInit(i); //this successfully sets up variable so that I don't have to check for undefined.
+t.checkIfNotInit(i); //this assigns variable value so that I don't have to check for undefined
+t.setTimeout(i,3000); //this works
+t.setTimeoutTest(function(){console.log("Value of timerTwoStarted: " + t.holdTimers[i].timerStarted);}, 3000); //this doesn't work
 
-if (t.holdTimers[i].timerStarted == false) { 
-	t.setTimeout(i,3000); //this works
-	t.setTimeoutTest(function(){t.holdTimers[i].timerStarted = false;}, 3000); //this doesn't work
-	t.holdTimers[i].timerStarted = true;
-	console.log(t.holdTimers[t.holdTimers.length-1].timerStarted);
-} //end 
 
 </script>
 </html>
